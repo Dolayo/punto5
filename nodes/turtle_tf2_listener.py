@@ -6,6 +6,7 @@ import tf2_ros
 import geometry_msgs.msg
 import turtlesim.srv
 import random
+from std_srvs.srv import Empty
 
 
 
@@ -15,7 +16,8 @@ def my_callback(event):
     counter+=1
 
     spawner(random.randint(0,9), random.randint(0,9),0, turtle_names[counter-1])
-    colorinchis = rospy.ServiceProxy('spawn', turtlesim.srv.Spawn)
+    colorinchis = rospy.ServiceProxy(turtle_names[counter-1] + '/set_pen', turtlesim.srv.SetPen)
+    colorinchis(255,0,0,3,0)
     return
 
 
@@ -36,6 +38,11 @@ if __name__ == '__main__':
     turtle_names = [turtle_name,turtle_name2,turtle_name3]
 
     spawner(4, 2, 0, turtle_name)
+    color = rospy.ServiceProxy('turtle1/set_pen', turtlesim.srv.SetPen)
+    color(255,0,0,3,0)
+    color2 = rospy.ServiceProxy('turtle2/set_pen', turtlesim.srv.SetPen)
+    color2(255,0,0,3,0)
+
     
 
     
@@ -50,6 +57,7 @@ if __name__ == '__main__':
 
     flag1 = False
     flag2 = False
+    flag2b = False
     flag3 = False
 
     counter = 1
@@ -57,7 +65,11 @@ if __name__ == '__main__':
 
     my_timer = rospy.Timer(rospy.Duration(4), my_callback)
 
-
+    rospy.set_param('/background_b',0)
+    rospy.set_param('/background_r',255)
+    rospy.set_param('/background_g',255)
+    clearer = rospy.ServiceProxy('clear',Empty)
+    clearer()
 
     rate = rospy.Rate(10.0)
     while not rospy.is_shutdown():
@@ -90,10 +102,11 @@ if __name__ == '__main__':
         if (math.sqrt(x_pose1 ** 2 + y_pose1 ** 2)) < 1:
             flag1 = True
 
+
         if (flag1):
             msg.angular.z = speed_r * math.atan2(y_pose1, x_pose1)
             msg.linear.x = speed_l * math.sqrt(x_pose1 ** 2 + y_pose1 ** 2)
-
+            
         msg2 = geometry_msgs.msg.Twist()
 
         x_pose2 = trans2.transform.translation.x
@@ -105,6 +118,7 @@ if __name__ == '__main__':
         if (flag2):
             msg2.angular.z = speed_r * math.atan2(y_pose2, x_pose2)
             msg2.linear.x = speed_l * math.sqrt(x_pose2 ** 2 + y_pose2 ** 2)
+
         
         msg3 = geometry_msgs.msg.Twist()
 
@@ -113,13 +127,22 @@ if __name__ == '__main__':
 
         if (math.sqrt(x_pose3 ** 2 + y_pose3 ** 2)) < 1:
             flag3 = True
+            flag2b = True
 
         if (flag3):
-            #msg3.angular.z = speed_r * math.atan2(y_pose3, x_pose3)
-            #msg3.linear.x = speed_l * math.sqrt(x_pose3 ** 2 + y_pose3 ** 2)
-            teleporter = rospy.ServiceProxy('turtle4/teleport_relative', turtlesim.srv.TeleportRelative)
-            teleporter(3,0.7)
-            flag3 = False
+            msg3.angular.z = speed_r * math.atan2(y_pose3, x_pose3)
+            msg3.linear.x = speed_l * math.sqrt(x_pose3 ** 2 + y_pose3 ** 2)
+            #teleporter = rospy.ServiceProxy('turtle4/teleport_relative', turtlesim.srv.TeleportRelative)
+            #teleporter(3,0.7)
+            #flag3 = False
+        
+        if (flag2b):
+            if ((math.sqrt(x_pose1 ** 2 + y_pose1 ** 2)) < 0.2):
+    
+                killer = rospy.ServiceProxy('kill', turtlesim.srv.Kill)
+                killer('turtle3')
+                killer('turtle4')
+                flag2b = False
 
 
 
