@@ -15,24 +15,6 @@
     <node name="turtle4_tf2_broadcaster" pkg="punto5" type="turtle_tf2_broadcaster.py" respawn="false" output="screen" >
     <param name="turtle" type="string" value="turtle4" />
     </node>
-    <node name="turtle5_tf2_broadcaster" pkg="punto5" type="turtle_tf2_broadcaster.py" respawn="false" output="screen" >
-    <param name="turtle" type="string" value="turtle5" />
-    </node>
-    <node name="turtle6_tf2_broadcaster" pkg="punto5" type="turtle_tf2_broadcaster.py" respawn="false" output="screen" >
-    <param name="turtle" type="string" value="turtle6" />
-    </node>
-    <node name="turtle7_tf2_broadcaster" pkg="punto5" type="turtle_tf2_broadcaster.py" respawn="false" output="screen" >
-    <param name="turtle" type="string" value="turtle7" />
-    </node>
-    <node name="turtle8_tf2_broadcaster" pkg="punto5" type="turtle_tf2_broadcaster.py" respawn="false" output="screen" >
-    <param name="turtle" type="string" value="turtle8" />
-    </node>
-    <node name="turtle9_tf2_broadcaster" pkg="punto5" type="turtle_tf2_broadcaster.py" respawn="false" output="screen" >
-    <param name="turtle" type="string" value="turtle9" />
-    </node>
-    <node name="turtle10_tf2_broadcaster" pkg="punto5" type="turtle_tf2_broadcaster.py" respawn="false" output="screen" >
-    <param name="turtle" type="string" value="turtle10" /> 
-    </node>
     <node pkg="punto5" type="turtle_tf2_listener.py" 
           name="listener" output="screen"/>
     <node pkg="punto5" type="fixed_tf2_broadcaster.py"
@@ -41,17 +23,6 @@
           name="broadcaster_fixed2" output="screen"/>
     <node pkg="punto5" type="fixed3_tf2_broadcaster.py"
         name="broadcaster_fixed3" output="screen"/>
-    <node pkg="punto5" type="fixed4_tf2_broadcaster.py"
-        name="broadcaster_fixed4" output="screen"/>
-    <node pkg="punto5" type="fixed5_tf2_broadcaster.py"
-        name="broadcaster_fixed5" output="screen"/>
-    <node pkg="punto5" type="fixed6_tf2_broadcaster.py"
-        name="broadcaster_fixed6" output="screen"/>
-    <node pkg="punto5" type="fixed7_tf2_broadcaster.py"
-        name="broadcaster_fixed7" output="screen"/>
-    <node pkg="punto5" type="fixed8_tf2_broadcaster.py"
-        name="broadcaster_fixed8" output="screen"/>
-    <node pkg="punto5" type="fixed9_tf2_broadcaster.py"
-        name="broadcaster_fixed9" output="screen"/>
+
 
   </launch>
