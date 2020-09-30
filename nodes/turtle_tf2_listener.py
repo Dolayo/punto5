@@ -7,14 +7,16 @@ import geometry_msgs.msg
 import turtlesim.srv
 import random
 
+
+
 def my_callback(event):
 
     global counter
     counter+=1
 
-    spawner(random.randint(0, 5), random.randint(0, 5),0, turtle_names[counter-1])
+    spawner(random.randint(0,9), random.randint(0,9),0, turtle_names[counter-1])
+    colorinchis = rospy.ServiceProxy('spawn', turtlesim.srv.Spawn)
     return
-
 
 
 if __name__ == '__main__':
@@ -35,13 +37,15 @@ if __name__ == '__main__':
 
     spawner(4, 2, 0, turtle_name)
     
+
     
 
     turtle_vel = rospy.Publisher('%s/cmd_vel' % turtle_name, geometry_msgs.msg.Twist, queue_size=1)
     turtle_vel2 = rospy.Publisher('%s/cmd_vel' % turtle_name2, geometry_msgs.msg.Twist, queue_size=1)
     turtle_vel3 = rospy.Publisher('%s/cmd_vel' % turtle_name3, geometry_msgs.msg.Twist, queue_size=1)
 
-
+    speed_l = 2
+    speed_r = 5
 
 
     flag1 = False
@@ -65,6 +69,7 @@ if __name__ == '__main__':
                 #flag3 = False
             
             #past = rospy.Time.now() - rospy.Duration(1.0)#aqui por el tiempo que vaya por detras
+
             if(counter==3):
                 rospy.Timer.shutdown(my_timer)
 
@@ -79,39 +84,42 @@ if __name__ == '__main__':
 
         msg = geometry_msgs.msg.Twist()
 
-        x_pose = trans.transform.translation.x
-        y_pose = trans.transform.translation.y
+        x_pose1 = trans.transform.translation.x
+        y_pose1 = trans.transform.translation.y
 
-        if (math.sqrt(x_pose ** 2 + y_pose ** 2)) < 1:
+        if (math.sqrt(x_pose1 ** 2 + y_pose1 ** 2)) < 1:
             flag1 = True
 
         if (flag1):
-            msg.angular.z = 4 * math.atan2(y_pose, x_pose)
-            msg.linear.x = 0.5 * math.sqrt(x_pose ** 2 + y_pose ** 2)
+            msg.angular.z = speed_r * math.atan2(y_pose1, x_pose1)
+            msg.linear.x = speed_l * math.sqrt(x_pose1 ** 2 + y_pose1 ** 2)
 
         msg2 = geometry_msgs.msg.Twist()
 
-        x_pose = trans2.transform.translation.x
-        y_pose = trans2.transform.translation.y
+        x_pose2 = trans2.transform.translation.x
+        y_pose2 = trans2.transform.translation.y
 
-        if (math.sqrt(x_pose ** 2 + y_pose ** 2)) < 1:
+        if (math.sqrt(x_pose2 ** 2 + y_pose2 ** 2)) < 1:
             flag2 = True
 
         if (flag2):
-            msg2.angular.z = 6 * math.atan2(y_pose, x_pose)
-            msg2.linear.x = 3 * math.sqrt(x_pose ** 2 + y_pose ** 2)
+            msg2.angular.z = speed_r * math.atan2(y_pose2, x_pose2)
+            msg2.linear.x = speed_l * math.sqrt(x_pose2 ** 2 + y_pose2 ** 2)
         
         msg3 = geometry_msgs.msg.Twist()
 
-        x_pose = trans3.transform.translation.x
-        y_pose = trans3.transform.translation.y
+        x_pose3 = trans3.transform.translation.x
+        y_pose3 = trans3.transform.translation.y
 
-        if (math.sqrt(x_pose ** 2 + y_pose ** 2)) < 1:
+        if (math.sqrt(x_pose3 ** 2 + y_pose3 ** 2)) < 1:
             flag3 = True
 
         if (flag3):
-            msg3.angular.z = 6 * math.atan2(y_pose, x_pose)
-            msg3.linear.x = 3 * math.sqrt(x_pose ** 2 + y_pose ** 2)
+            #msg3.angular.z = speed_r * math.atan2(y_pose3, x_pose3)
+            #msg3.linear.x = speed_l * math.sqrt(x_pose3 ** 2 + y_pose3 ** 2)
+            teleporter = rospy.ServiceProxy('turtle4/teleport_relative', turtlesim.srv.TeleportRelative)
+            teleporter(3,0.7)
+            flag3 = False
 
 
 
