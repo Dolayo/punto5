@@ -42,7 +42,7 @@ if __name__ == '__main__':
             trans2 = tfBuffer.lookup_transform_full(
                 target_frame=turtle_name2,
                 target_time=rospy.Time.now(),
-                source_frame=turtle_name,
+                source_frame='carrot2',
                 source_time=past,
                 fixed_frame='world',
                 timeout=rospy.Duration(1.0)

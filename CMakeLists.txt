@@ -208,5 +208,6 @@ include_directories(
 # catkin_add_nosetests(test)
 
 catkin_install_python(PROGRAMS nodes/turtle_tf2_broadcaster.py nodes/turtle_tf2_listener.py nodes/fixed_tf2_broadcaster.py nodes/dynamic_tf2_broadcaster.py
+                      nodes/fixed2_tf2_broadcaster.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

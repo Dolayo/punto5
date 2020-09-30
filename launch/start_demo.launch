@@ -16,5 +16,7 @@
           name="listener" output="screen"/>
     <node pkg="punto5" type="fixed_tf2_broadcaster.py"
           name="broadcaster_fixed" output="screen"/>
+    <node pkg="punto5" type="fixed2_tf2_broadcaster.py"
+          name="broadcaster_fixed2" output="screen"/>
 
   </launch>
