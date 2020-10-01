@@ -211,5 +211,6 @@ catkin_install_python(PROGRAMS nodes/turtle_tf2_broadcaster.py nodes/turtle_tf2_
                       nodes/fixed2_tf2_broadcaster.py
 			nodes/fixed3_tf2_broadcaster.py
       nodes/fixed4_tf2_broadcaster.py
+      nodes/fixed5_tf2_broadcaster.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

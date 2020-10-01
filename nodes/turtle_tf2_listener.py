@@ -83,7 +83,7 @@ if __name__ == '__main__':
             trans = tfBuffer.lookup_transform(turtle_name, 'carrot1', rospy.Time())
             trans2 = tfBuffer.lookup_transform(turtle_name2, 'carrot2', rospy.Time())
             trans3 = tfBuffer.lookup_transform(turtle_name3, 'carrot3', rospy.Time())
-            trans4 = tfBuffer.lookup_transform(turtle_name3, 'carrot3', rospy.Time())
+            trans4 = tfBuffer.lookup_transform(turtle_name4, 'carrot4', rospy.Time())
 
 
         except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
@@ -151,7 +151,7 @@ if __name__ == '__main__':
             #msg4.angular.z = speed_r * math.atan2(y_pose4, x_pose4)
             #msg4.linear.x = speed_l * math.sqrt(x_pose4 ** 2 + y_pose4 ** 2)
             teleporter = rospy.ServiceProxy('turtle5/teleport_relative', turtlesim.srv.TeleportRelative)
-            teleporter(3,0.7)
+            teleporter(random.randint(0,3),random.randint(0,2))
             flag4 = False
 
 

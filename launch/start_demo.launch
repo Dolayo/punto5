@@ -26,6 +26,8 @@
           name="broadcaster_fixed2" output="screen"/>
     <node pkg="punto5" type="fixed3_tf2_broadcaster.py"
         name="broadcaster_fixed3" output="screen"/>
+         <node pkg="punto5" type="fixed4_tf2_broadcaster.py"
+        name="broadcaster_fixed4" output="screen"/>
 
 
   </launch>
